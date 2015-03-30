@@ -40,37 +40,79 @@
 		return total;
 	};
 	//默认所有的都为1，当遇到汉字时，字符大于255，所有leng+1;
-	p.byteLen = function(str){
+	p.byteLen = function(str) {
 		var bytelength = str.length,
-			i=0;
-		for(;i<bytelength;i++){
-			if(str.charCodeAt(i) > 255){
+			i = 0;
+		for (; i < bytelength; i++) {
+			if (str.charCodeAt(i) > 255) {
 				bytelength++;
 			}
 		}
 		return bytelength;
 	};
 	//是用汉字正则
-	p.bytelen1 = function(str,fix){
+	p.bytelen1 = function(str, fix) {
 		fix = fix ? fix : 2;
-		var target = new Array(fix+1).join('-');
-		return str.replace(/[^\x00-\xff]/g,target).length;
+		var target = new Array(fix + 1).join('-');
+		return str.replace(/[^\x00-\xff]/g, target).length;
 	};
 	//字符串截取，超过限定长度补充。。。
-	p.truncate = function(target,length,truncation){
+	p.truncate = function(target, length, truncation) {
 		length = length || 30;
 		truncation = truncation === void(0) ? '...' : truncation;
-		return target.length>length?target.slice(0,length-truncation.length)+truncation : String(target);
+		return target.length > length ? target.slice(0, length - truncation.length) + truncation : String(target);
 	};
 	//转为驼峰
-	p.camelize = function(target){
-		if(target.indexOf('_') < 0 && target.indexOf('-')<0){
+	p.camelize = function(target) {
+		if (target.indexOf('_') < 0 && target.indexOf('-') < 0) {
 			return target;
 		}
-		return target.replace(/[-_][^-_]/g,function(match){
+		return target.replace(/[-_][^-_]/g, function(match) {
 			return match.chatAt(1).toUpperCase();
 		});
 	};
+	//转出下横线风格
+	p.underscored = function(target) {
+		return target.replace(/(a-z\d)([A-Z])/g, '$1_$2').
+		replace(/\-/g, '_').toLowerCase();
+	};
+	//转成连字符风格，即css变量的风格
+	p.dasherize = function(target) {
+		return this.underscored(target).replace('/_/g', '-');
+	};
+	//首字母大写
+	p.capitalize = function(target) {
+		return target.chatAt(0).toUpperCase() + target.substring(1).toLowerCase();
+	};
+	//移除字符串中中的html标签，缺陷是会把<script>里面的脚本显示出来，
+	p.stripTags = function(target) {
+		return String(target || '').replace(/<[^>]+>/g, '');
+	};
+	//移除字符串中的script标签
+	p.stripScripts = function(target) {
+		return String(target || '').replace(/<script[^>]*>([\S\s]*?)<\/script>/img, '');
+	};
+	//将字符串经过htmk转义得到适合页面的内容
+	p.escapeHTML = function(target) {
+		return target.replace(/&/g, '&amp;')
+			.replace(/>/g, '&gt;')
+			.replace(/</g, '&lt;')
+			.replace(/"/g, '&quot;')
+			.replace(/'/g, '&#39;');
+	};
+	p.unescapeHTMl = function(target) {
+		return target.replace(/&gt;/g, '>')
+			.replace(/&lt;/g, '<')
+			.replace(/&quot;/g, '"')
+			.replace(/&amp;/g, '&')
+			.replace(/&#([\d]+);/g, function($0, $1) {
+				return String.fromCharCode(parseInt($1, 10));
+			});
+	};
+	//将字符串安全格式转为正则表达式的源码
+	p.escapeRegExp = function(target){
+		return target.replace(/([-.*+?^${}()|\/\\])/g,'\\$1');
+	};
 	new lang().init();
-	
+
 })(window);
