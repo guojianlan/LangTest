@@ -110,8 +110,50 @@
 			});
 	};
 	//将字符串安全格式转为正则表达式的源码
-	p.escapeRegExp = function(target){
-		return target.replace(/([-.*+?^${}()|\/\\])/g,'\\$1');
+	p.escapeRegExp = function(target) {
+		return target.replace(/([-.*+?^${}()|\/\\])/g, '\\$1');
+	};
+	p.padOne = function(target, n) {
+		var zero = new Array(n).join('0');
+		var str = zero + target;
+		return str.substr(-n);
+	};
+	//添加0
+	p.pad = function(target, n, filling, right, radix) {
+		var num = target.toString(radix || 10);
+		filling = filling || '0';
+		while (num.length < n) {
+			if (!right) {
+				num = filling + num;
+			} else {
+				num += filling;
+			}
+		}
+		return num;
+
+	};
+	//软换行
+	p.wbr = function(target) {
+		return String(target)
+			.replace(/(?:<[^>]+>)|(?:&#?[0-9a-z]{2-6};)|(.{1})/gi,'$&<wbr>')
+			.replace(/><wbr>/g,'>');
+	};
+
+	p.format = function(str,object){
+		var array = Array.prototype.slice.call(arguments,1);
+		return str.replace(/\\?\#{([^{}]+)\}/gm,function(match,name){
+			if(match.chatAt(0) === '\\'){
+				return match.slice(1);
+			}
+			var index = Number(name);
+			if(index >0 ){
+				return array[index];
+			}
+			if(object && object[name] !== void 0){
+				return object[name];
+			}
+			return '';
+		});
 	};
 	new lang().init();
 
