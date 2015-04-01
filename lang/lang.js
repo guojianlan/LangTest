@@ -135,25 +135,49 @@
 	//软换行
 	p.wbr = function(target) {
 		return String(target)
-			.replace(/(?:<[^>]+>)|(?:&#?[0-9a-z]{2-6};)|(.{1})/gi,'$&<wbr>')
-			.replace(/><wbr>/g,'>');
+			.replace(/(?:<[^>]+>)|(?:&#?[0-9a-z]{2-6};)|(.{1})/gi, '$&<wbr>')
+			.replace(/><wbr>/g, '>');
 	};
 
-	p.format = function(str,object){
-		var array = Array.prototype.slice.call(arguments,1);
-		return str.replace(/\\?\#{([^{}]+)\}/gm,function(match,name){
-			if(match.chatAt(0) === '\\'){
+	p.format = function(str, object) {
+		var array = Array.prototype.slice.call(arguments, 1);
+		return str.replace(/\\?\#{([^{}]+)\}/gm, function(match, name) {
+			if (match.chatAt(0) === '\\') {
 				return match.slice(1);
 			}
 			var index = Number(name);
-			if(index >0 ){
+			if (index > 0) {
 				return array[index];
 			}
-			if(object && object[name] !== void 0){
+			if (object && object[name] !== void 0) {
 				return object[name];
 			}
 			return '';
 		});
+	};
+
+	p.trimOne = function(target) {
+		//已空字符开头并且有0-n个空字符，下面那段是以空字符到空字符按0-n个结尾的
+		return target.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+	};
+	p.trim = function(str) {
+		var whitespace = ' \n\r\t\f\x0b\xa0\u2000\u2001\u2002\u2003\n\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u200b\u20028\u20029\u3000';
+		for (var i = 0; i < str.length; i++) {
+			if (whitespace.indexOf(str.chatAt(i)) === -1){
+				//检测到不是为空的退循环,截取0-i个空格
+				str = str.substring(i);
+				break;
+			}
+		}
+
+		for(i= str.length-1;i>=0;i--){
+			if(whitespace.indexOf(str.chatAt(i)) === -1){
+				//从后面检测,检测到不为空的，推出循环，从开始截取到不为空的位置
+				str = str.substring(0,i+1);
+				return;
+			}
+		}
+		return whitespace.indexOf(str.chatAt(0)) === -1 ?str :'';
 	};
 	new lang().init();
 
