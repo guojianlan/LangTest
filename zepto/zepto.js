@@ -2,8 +2,8 @@
 ;(function(undefined) {
 if (String.prototype.trim === undefined) // fix for iOS 3.2
 String.prototype.trim = function() {
-return this.replace(/^\s+|\s+$/g, '')
-}
+return this.replace(/^\s+|\s+$/g, '');
+};
 
 // For iOS 3.x
 // from https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/reduce
@@ -11,13 +11,13 @@ return this.replace(/^\s+|\s+$/g, '')
 //比如[1,2,3,4,].reduce(function(x,y){ return x+y}); ==> ((1+2)+3)+4,
 
 if (Array.prototype.reduce === undefined) Array.prototype.reduce = function(fun) {
-if (this === void 0 || this === null) throw new TypeError()
+if (this === void 0 || this === null) throw new TypeError();
 var t = Object(this),
 len = t.length >>> 0,
 k = 0,
-accumulator
-if (typeof fun != 'function') throw new TypeError()
-if (len == 0 && arguments.length == 1) throw new TypeError()
+accumulator;
+if (typeof fun != 'function') throw new TypeError();
+if (len === 0 && arguments.length === 1) throw new TypeError();
 //取初始值
 if (arguments.length >= 2) accumulator = arguments[1] //如果参数长度大于2个，则将第二个参数作为初始值
 else do {
