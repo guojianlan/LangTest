@@ -1,4 +1,5 @@
 /* Zepto v1.0-1-ga3cab6c - polyfill zepto detect event ajax form fx - zeptojs.com/license */
+//去前后空格，兼容版本
 ;(function(undefined) {
 if (String.prototype.trim === undefined) // fix for iOS 3.2
 String.prototype.trim = function() {
@@ -8,7 +9,8 @@ return this.replace(/^\s+|\s+$/g, '');
 // For iOS 3.x
 // from https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/reduce
 //这个方法的作用就是累似一个累计处理的作用，将前一条数据的处理结果用作下一次的处理
-//比如[1,2,3,4,].reduce(function(x,y){ return x+y}); ==> ((1+2)+3)+4,
+//比如[1,2,3,4,].reduce(function(x,y){ return x+y}); ==> ((1+2
+	)+3)+4,
 
 if (Array.prototype.reduce === undefined) Array.prototype.reduce = function(fun) {
 if (this === void 0 || this === null) throw new TypeError();
@@ -105,6 +107,7 @@ var match, parent = element.parentNode,temp = !parent
 //当element没有父节点，那么将其插入到一个临时的div里面
 if (temp)(parent = tempParent).appendChild(element)
 //将parent作为上下文，来查找selector的匹配结果，并获取element在结果集的索引，不存在时为－1,再通过~-1转成0，存在时返回一个非零的值
+//qsa函数在342行
 match = ~zepto.qsa(parent, selector).indexOf(element)
 //将插入的节点删掉
 temp && tempParent.removeChild(element)
@@ -127,6 +130,7 @@ return obj != null && obj == obj.window
 }
 
 function isDocument(obj) {
+	//判断是否是document
 return obj != null && obj.nodeType == obj.DOCUMENT_NODE
 }
 
@@ -340,7 +344,7 @@ return target
 // This method can be overriden in plugins.
 zepto.qsa = function(element, selector) {
 var found
-//当element为document,且selector为ID选择器时
+//当element为document,且selector为ID选择器时,idSelectorRE=/^#([\w-]+)$/g
 return (isDocument(element) && idSelectorRE.test(selector)) ?
 //直接返回document.getElementById,RegExp.$1为ID的值,当没有找节点时返回[]
 ((found = element.getElementById(RegExp.$1)) ? [found] : []) :
@@ -348,7 +352,7 @@ return (isDocument(element) && idSelectorRE.test(selector)) ?
 (element.nodeType !== 1 && element.nodeType !== 9) ? [] :
 //否则将获取到的结果转成数组并返回
 slice.call(
-//如果selector是标签名,直接调用getElementsByClassName
+//如果selector是标签名,直接调用getElementsByClassName,classSelectorRE=/^\.([\w-]+)$/g
 classSelectorRE.test(selector) ? element.getElementsByClassName(RegExp.$1) :
 //如果selector是标签名,直接调用getElementsByTagName
 tagSelectorRE.test(selector) ? element.getElementsByTagName(selector) :
