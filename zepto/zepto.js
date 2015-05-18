@@ -9,8 +9,7 @@ return this.replace(/^\s+|\s+$/g, '');
 // For iOS 3.x
 // from https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/reduce
 //这个方法的作用就是累似一个累计处理的作用，将前一条数据的处理结果用作下一次的处理
-//比如[1,2,3,4,].reduce(function(x,y){ return x+y}); ==> ((1+2
-	)+3)+4,
+//比如[1,2,3,4,].reduce(function(x,y){ return x+y}); ==> ((1+2)+3)+4,
 
 if (Array.prototype.reduce === undefined) Array.prototype.reduce = function(fun) {
 if (this === void 0 || this === null) throw new TypeError();
@@ -120,7 +119,6 @@ function type(obj) {
 //obj为null或者undefined时，直接返回'null'或'undefined'
 return obj == null ? String(obj) : class2type[toString.call(obj)] || "object"
 }
-
 function isFunction(value) {
 return type(value) == "function"
 }
@@ -253,10 +251,9 @@ else nodes.attr(key, value)
 return dom
 }
 
-// `$.zepto.Z` swaps out the prototype of the given `dom` array
-// of nodes with `$.fn` and thus supplying all the Zepto functions
-// to the array. Note that `__proto__` is not supported on Internet
-// Explorer. This method can be overriden in plugins.
+// `$.zepto.Z` swaps out the prototype of the given `dom` array of nodes with `$.fn` and thus supplying all the Zepto functions to the array.
+// Note that `__proto__` is not supported on Internet Explorer
+// This method can be overriden in plugins.
 zepto.Z = function(dom, selector) {
 dom = dom || []
 dom.__proto__ = $.fn //通过给dom设置__proto__属性指向$.fn来达到继承$.fn上所有方法的目的
@@ -292,6 +289,7 @@ else if (isObject(selector))
 //如果是该对象是DOM，则直接放到数组中
 dom = [isPlainObject(selector) ? $.extend({}, selector) : selector], selector = null
 //如果selector是一段HTML代码片断，则将其转换成DOM节点
+
 else if (fragmentRE.test(selector)) dom = zepto.fragment(selector.trim(), RegExp.$1, context), selector = null
 //如果存在上下文context，则在上下文中查找selector，此时的selector为普通的CSS选择器
 else if (context !== undefined) return $(context).find(selector)
@@ -352,7 +350,7 @@ return (isDocument(element) && idSelectorRE.test(selector)) ?
 (element.nodeType !== 1 && element.nodeType !== 9) ? [] :
 //否则将获取到的结果转成数组并返回
 slice.call(
-//如果selector是标签名,直接调用getElementsByClassName,classSelectorRE=/^\.([\w-]+)$/g
+//如果selector是class名,直接调用getElementsByClassName,classSelectorRE=/^\.([\w-]+)$/g
 classSelectorRE.test(selector) ? element.getElementsByClassName(RegExp.$1) :
 //如果selector是标签名,直接调用getElementsByTagName
 tagSelectorRE.test(selector) ? element.getElementsByTagName(selector) :
@@ -1581,7 +1579,7 @@ script.onerror = function() {
 abort('error')
 }
 //将回调函数名追加到请求地址，并赋给script，至此请求产生
-script.src="http://m.cnblogs.com/143163/options.url.replace(/=/?/," rel="nofollow"/> $('head').append(script)
+//script.src="http://m.cnblogs.com/143163/options.url.replace(/=/?/," rel="nofollow"/> $('head').append(script)
 
 //如果设置了超时处理
 if (options.timeout > 0) abortTimeout = setTimeout(function() {
