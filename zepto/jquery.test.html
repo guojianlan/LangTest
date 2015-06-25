@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		var $$ = ajquery = function(selector){
+			return new ajquery.fn.init(selector);
+		}
+		ajquery.fn =ajquery.prototype = {
+			init:function(selector){
+				this.selector = selector;
+				return this;
+			},
+			name:'gj',
+			constructor:ajquery
+		}
+		ajquery.fn.init.prototype = ajquery.fn;
+		ajquery.fn.setName = function(myname){
+			this.name=myname;
+			return this;
+		}
+		ajquery.fn.getName = function(){
+			alert(this.name);
+			return this;
+		}
+	</script>
+	<script type="text/javascript">
+		$$().setName('hehe').getName();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

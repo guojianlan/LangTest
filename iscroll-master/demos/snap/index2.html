@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<title>ceshi</title>
+	<style type="text/css">
+		* {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+			}
+
+		html {
+			-ms-touch-action: none;
+		}
+
+		body,ul,li {
+			padding: 0;
+			margin: 0;
+			border: 0;
+		}
+
+		body {
+			font-size: 12px;
+			font-family: ubuntu, helvetica, arial;
+			overflow: hidden; /* this is important to prevent the whole page to bounce */
+			background: #000;
+		}
+		#viewport{
+			width:320px;
+			height:320px
+			overflow: hidden;
+			position: relative;
+			margin:0 auto;
+			background:#00dff0;
+		}
+		#wrapper{
+			width:320px;
+			height:320px;
+			margin:0 auto;
+		}
+		#scroller{
+			-webkit-tap-highlight-color: rgba(0,0,0,0);
+			-webkit-transform: translateZ(0);
+			-moz-transform: translateZ(0);
+			-ms-transform: translateZ(0);
+			-o-transform: translateZ(0);
+			transform: translateZ(0);
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			-webkit-text-size-adjust: none;
+			-moz-text-size-adjust: none;
+			-ms-text-size-adjust: none;
+			-o-text-size-adjust: none;
+			text-size-adjust: none;
+		}
+		li{
+			width:320px;
+			height:320px;
+			list-style: none;
+			text-align: center;
+		}
+	</style>
+	<script type="text/javascript" src="../../build/iscroll.js"></script>
+</head>
+<body onload="scrollS()">
+	<div id='viewport'>
+		<div id='wrapper'>
+			<ul id='scroller'>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+		</div>
+	</div>
+	<script type="text/javascript">
+	var myScroll;
+	function scrollS(){
+		myScroll = new IScroll('#wrapper', {
+		       scrollX: true,
+		       scrollY: true,
+		       momentum: false,
+		       snap: true,
+		       snapSpeed: 500,
+		       probeType: 3
+		   });
+		function xx(){
+			console.log(this.y);
+		}
+		myScroll.on('scroll',xx);
+		myScroll.on('scrollEnd',xx);
+	}
+	
+	
+
+ 
+ document.addEventListener('touchmove',function(e){e.preventDefault();});
+	</script>
+</html>
