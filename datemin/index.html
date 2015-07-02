@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="mobiscroll.css">
+	<script src="jquery.min.js"></script>
+	<script type="text/javascript" src='mobiscroll.js'></script>
+	
+	<script type="text/javascript"></script>
+</head>
+<body>
+	<div>
+		<input type="text" id='containerId'>
+	</div>
+	<script type="text/javascript">
+			$("#containerId").mobiscroll({
+				preset:'date',
+				theme:'ios light',
+				display:'bottom',
+				setText: '确定', 
+				dateOrder:'yymmdd',
+				cancelText: '取消',	//取消按钮名
+				dayText: '日',
+				monthText:'月',
+				yearText:'年',
+				hourText:'时',
+				minuteText:'分',
+				secText:'秒',
+				startYear:2010,
+				lang:'zh'
+
+			});
+	</script>
+</body>
+</html>

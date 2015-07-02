@@ -19,10 +19,6 @@ function updatePosition () {
 
 function loaded () {
 	position = document.getElementById('position');
-	var ali = document.getElementsByTagName('li');
-	for(var i=0;i<ali.length;i++){
-		ali[i].style.height='667px';
-	}
 	myScroll = new IScroll('#wrapper', { probeType: 3, snap: true });
 	myScroll.on('scroll', updatePosition);
 	myScroll.on('scrollEnd', updatePosition);
@@ -100,11 +96,9 @@ body {
 #scroller li {
 	background-color: #fafafa;
 	font-size: 14px;
+	height:50px;
 }
-#scroller li:nth-of-type(odd) {
-	background-color: #f00f00;
-	font-size: 14px;
-}
+
 </style>
 </head>
 <body onload="loaded()">

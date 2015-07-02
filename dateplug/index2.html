@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>date</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="normalize.css">
+	<link rel="stylesheet" type="text/css" href="dateplug.css">
+	<style type="text/css">
+		#dateshow{height:100px;background:#eee;}
+		ul,li{list-style: none;padding:0;margin:0;}
+	</style>
+</head>
+<body>
+	<div id='dateshow'></div>
+	<script type="text/javascript" src='iscroll-probe4.min.js'></script>
+	<script type="text/javascript" src='calendar.js'></script>
+	<script type="text/javascript">
+
+		var dateplugins = new calendar({
+			startYear:2000,
+	        chooseYear:2004, // 初始化选择到得时间
+	        chooseMonth:2,
+	        chooseDay:28,
+	        chooseHour:4,
+	        chooseMinute:30,
+	        endYear:2999,
+	        endFn:function(){
+	        	alert(this.Year+'年'+this.Month+'月'+this.Day+'日'+this.Hour+'时'+this.Minute+'分');
+	        }
+	    });
+	    document.querySelector('#dateshow').addEventListener('click',function(){
+	    	dateplugins.createHTML();
+	    },false)
+	   
+	</script>
+</body>
+</html>

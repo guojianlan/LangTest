@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>date</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<link rel="stylesheet" type="text/css" href="normalize.css">
+	<link rel="stylesheet" type="text/css" href="dateplug.css">
+	<style type="text/css">
+		#dateshow{height:100px;background:#eee;}
+		ul,li{list-style: none;padding:0;margin:0;}
+	</style>
+</head>
+<body>
+	<div id='dateshow'></div>
+	<script type="text/javascript" src='iscroll.js'></script>
+	<script type="text/javascript" src='dateplug.js'></script>
+	<script type="text/javascript">
+
+		var dateplugins = new dateNew({
+			startYear:2000,
+	        chooseYear:2001, // 初始化选择到得时间
+	        chooseMonth:11,
+	        chooseYear2:2012,
+	        chooseMonth2:4
+	    });
+	    document.querySelector('#dateshow').addEventListener('click',function(){
+	    	dateplugins.createHTML();
+	    },false)
+	   
+	</script>
+</body>
+</html>

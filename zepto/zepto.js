@@ -107,7 +107,7 @@ var match, parent = element.parentNode,temp = !parent
 if (temp)(parent = tempParent).appendChild(element)
 //将parent作为上下文，来查找selector的匹配结果，并获取element在结果集的索引，不存在时为－1,再通过~-1转成0，存在时返回一个非零的值
 //qsa函数在342行
-match = ~zepto.qsa(parent, selector).indexOf(element)
+match = ~zepto.qsa函数在342行(parent, selector).indexOf(element)
 //将插入的节点删掉
 temp && tempParent.removeChild(element)
 return match
@@ -120,7 +120,7 @@ function type(obj) {
 return obj == null ? String(obj) : class2type[toString.call(obj)] || "object"
 }
 function isFunction(value) {
-return type(value) == "function"
+return typeof(value) == "function"
 }
 
 function isWindow(obj) {

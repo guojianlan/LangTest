@@ -50,6 +50,9 @@
 		}
 		return bytelength;
 	};
+	p.byteLen2 = function(str){
+		return str.replace(/[^\x00-\xff]/g,'aa').length;
+	}
 	//是用汉字正则
 	p.bytelen1 = function(str, fix) {
 		fix = fix ? fix : 2;
